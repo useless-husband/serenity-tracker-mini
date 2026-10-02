@@ -1,0 +1,13 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.log
+
+# 含個人設定的 agent 檔：請複製 serenity-agent.example.md 成 serenity-agent.md 後自行填寫
+serenity-agent.md
+
+# 安裝後才會產生
+config.json
+live/
+reports/
+archive/

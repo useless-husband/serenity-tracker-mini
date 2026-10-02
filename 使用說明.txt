@@ -1,0 +1,33 @@
+Serenity 自動快報（裝在 Mac mini）
+==================================
+
+做什麼：每 10 分鐘看一次 Serenity（@aleabitoreddit）的 X，有新推文就交給 serenity agent
+用中文分析，再用 iMessage 傳到你的 iPhone。半夜 0～8 點的推文會累積到 8 點再傳。
+
+安裝前，Mac mini 要先準備：
+  1. 打開「訊息」App，登入 iMessage（用你的 Apple ID）
+  2. 網路要通（會用到 x.com、GitHub、Yahoo 股價）
+
+安裝步驟：
+  1. 在筆電上，對桌面的 SerenityTracker-mini 資料夾按右鍵 → 分享 → AirDrop → 選 Mac mini
+  2. 到 Mac mini，打開「終端機」（Command + 空白鍵，輸入 終端機，按 Enter）
+  3. 貼上這一行，按 Enter：
+       bash ~/Downloads/SerenityTracker-mini/setup-mini.command
+  4. 照畫面做：
+     - 跳出「安裝開發者工具」→ 按安裝，裝完再貼一次第 3 步
+     - 問要不要裝 Claude Code → 輸入 y
+     - 說 Claude 還沒登入 → 輸入 claude 按 Enter 登入，登入完輸入 /exit，再貼一次第 3 步
+     - 問快報傳到哪 → 輸入你 iPhone 的電話號碼（+886 開頭）或 Apple ID Email
+     - 跳出「python3 想要控制『訊息』」→ 按「允許」
+  5. 最後手機會收到一則測試快報，就代表裝好了
+
+之後想改設定：終端機輸入  open -e ~/SerenityTracker/config.json
+  analyze               true = 要分析，false = 只傳原文
+  imessage_to           傳到哪支手機
+  model                 自動分析用的模型（sonnet 比較省用量）
+  max_analyses_per_day  一天最多分析幾次
+  quiet_hours           [0, 8] = 0 點到 8 點先不傳
+
+看紀錄：   tail -n 30 ~/SerenityTracker/live/watch.log
+快報全文： ~/SerenityTracker/reports/
+停用移除： bash ~/Downloads/SerenityTracker-mini/uninstall-mini.command
